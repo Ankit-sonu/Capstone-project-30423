@@ -1,0 +1,116 @@
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="bounce-in">🚌 Welcome to BusYatra</h1>
+    <p class="subtitle fade-in-up">Your gateway to incredible India - Book buses, create memories!</p>
+  </div>
+</section>
+
+<section class="search-section">
+  <div class="search-form-container">
+    <h2 style="text-align: center; margin-bottom: 30px; color: var(--navy);">
+      <mat-icon style="vertical-align: middle; margin-right: 10px;">search</mat-icon>
+      Find Your Perfect Journey
+    </h2>
+
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
+      <mat-form-field appearance="outline">
+        <mat-label>From</mat-label>
+        <mat-select formControlName="origin">
+          <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button type="button" mat-icon-button (click)="swapCities()" 
+              style="color: var(--saffron);" matTooltip="Swap cities">
+        <mat-icon>swap_horiz</mat-icon>
+      </button>
+
+      <mat-form-field appearance="outline">
+        <mat-label>To</mat-label>
+        <mat-select formControlName="destination">
+          <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Travel Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <button type="submit" mat-raised-button color="primary" class="pulse" [disabled]="isLoading">
+        <mat-spinner *ngIf="isLoading" diameter="20" style="margin-right: 10px;"></mat-spinner>
+        <mat-icon *ngIf="!isLoading">search</mat-icon>
+        <span>{{ isLoading ? 'Searching...' : 'Find Buses' }}</span>
+      </button>
+    </form>
+  </div>
+</section>
+
+<section style="padding: 80px 20px;">
+  <div style="text-align: center; margin-bottom: 60px;">
+    <h2 style="font-size: 2.5rem; color: var(--navy); margin-bottom: 20px;">
+      <mat-icon style="vertical-align: middle; margin-right: 15px; font-size: 3rem;">trending_up</mat-icon>
+      Popular Routes Across India
+    </h2>
+    <p style="font-size: 1.2rem; color: #666;">Discover India's most loved destinations</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto;">
+    <div *ngFor="let route of popularRoutes; let i = index" 
+         class="route-card fade-in-up"
+         (click)="onPopularRouteClick(route)"
+         [style.animation-delay]="(i * 0.2) + 's'">
+
+      <div style="position: relative;">
+        <img [src]="route.image" [alt]="route.origin + ' to ' + route.destination"
+             class="route-image" loading="lazy">
+        <div style="position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9); padding: 8px 12px; border-radius: 20px;">
+          <span style="font-size: 1.5rem;">{{route.icon}}</span>
+        </div>
+      </div>
+
+      <div class="route-content">
+        <h3 class="route-title">
+          {{route.origin}} <mat-icon style="vertical-align: middle;">arrow_forward</mat-icon> {{route.destination}}
+        </h3>
+        <p style="color: #666; margin: 10px 0;">{{route.description}}</p>
+
+        <div style="display: flex; justify-content: space-between; margin: 20px 0;">
+          <div class="route-price">{{route.price}}</div>
+          <div style="color: #666;">
+            <mat-icon style="vertical-align: middle; font-size: 1.2rem;">schedule</mat-icon>
+            {{route.duration}}
+          </div>
+        </div>
+
+        <button mat-stroked-button color="primary" style="width: 100%;">
+          <mat-icon>directions_bus</mat-icon>
+          <span>Book Journey</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features-section" style="background: linear-gradient(45deg, #f8f9fa, #e9ecef);">
+  <div style="text-align: center; margin-bottom: 60px;">
+    <h2 style="font-size: 2.5rem; color: var(--navy);">
+      <mat-icon style="vertical-align: middle; margin-right: 15px; font-size: 3rem;">star</mat-icon>
+      Why Choose BusYatra?
+    </h2>
+  </div>
+
+  <div class="features-grid">
+    <div *ngFor="let feature of features; let i = index" 
+         class="feature-card fade-in-up"
+         [style.animation-delay]="(i * 0.3) + 's'">
+      <mat-icon class="feature-icon float">{{feature.icon}}</mat-icon>
+      <h3 style="font-size: 1.3rem; font-weight: 600; color: var(--navy); margin: 20px 0 15px;">
+        {{feature.title}}
+      </h3>
+      <p style="color: #666; line-height: 1.6;">{{feature.description}}</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,54 @@
+@import '../../../styles.scss';
+
+.hero-section {
+  background: linear-gradient(135deg, var(--saffron) 0%, var(--accent-orange) 50%, var(--green) 100%);
+  padding: 120px 0 80px;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.4rem;
+    opacity: 0.95;
+    animation-delay: 0.5s;
+  }
+}
+
+.search-section {
+  padding: 0 20px;
+  margin-top: -60px;
+  position: relative;
+  z-index: 10;
+}
+
+.search-form-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+.route-card {
+  .route-image {
+    transition: transform 0.4s ease;
+  }
+
+  &:hover .route-image {
+    transform: scale(1.1);
+  }
+}

@@ -1,0 +1,154 @@
+.user-dashboard-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .dashboard-title {
+    color: var(--navy);
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .title-icon {
+      font-size: 2.5rem;
+      margin-right: 15px;
+      color: var(--saffron);
+    }
+  }
+
+  .loading-spinner, .no-bookings-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    font-size: 1.2rem;
+    color: #555;
+
+    mat-spinner {
+      margin-bottom: 20px;
+    }
+
+    mat-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: #888;
+    }
+  }
+
+  .bookings-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+
+    .booking-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease-in-out;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      mat-card-header {
+        background-color: var(--navy);
+        color: #fff;
+        padding: 20px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
+        mat-card-title {
+          font-size: 1.5rem;
+          font-weight: 600;
+        }
+
+        mat-card-subtitle {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 0.9rem;
+        }
+      }
+
+      mat-card-content {
+        padding: 20px;
+        flex-grow: 1;
+
+        .booking-details {
+          p {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #333;
+
+            strong {
+              color: var(--navy);
+              margin-right: 5px;
+            }
+
+            mat-chip-list {
+              display: inline-flex; /* To align chips horizontally */
+              vertical-align: middle;
+            }
+            mat-chip {
+                font-size: 0.85rem;
+                height: 28px;
+                padding: 0 10px;
+            }
+          }
+        }
+      }
+
+      mat-card-actions {
+        padding: 15px 20px;
+        border-top: 1px solid #eee;
+        background-color: #fafafa;
+
+        button {
+          font-size: 0.9rem;
+          padding: 8px 15px;
+        }
+      }
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .user-dashboard-container {
+    padding: 15px;
+    margin: 15px auto;
+
+    .dashboard-title {
+      font-size: 1.8rem;
+
+      .title-icon {
+        font-size: 2rem;
+      }
+    }
+
+    .bookings-list {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .user-dashboard-container {
+    padding: 10px;
+    margin: 10px auto;
+  }
+}
+
+
+
+
+
+
+

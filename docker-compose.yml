@@ -1,0 +1,133 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: bus_reservation
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - bus-reservation-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-ppassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: on-failure
+
+  auth-service:
+    build: ./backend/auth-service
+    container_name: auth-service
+    environment:
+      - DB_HOST=mysql-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_NAME=bus_reservation
+      - FLASK_SECRET_KEY=super-secret-session-key-for-all-services
+    ports:
+      - "5000:5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - bus-reservation-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "mysql-db", "-u", "root", "-ppassword"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  bus-service:
+    build: ./backend/bus-service
+    container_name: bus-service
+    environment:
+      - DB_HOST=mysql-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_NAME=bus_schedule
+    ports:
+      - "5001:5001"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - bus-reservation-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5001/health || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+
+  reservation-service:
+    build: ./backend/reservation-service
+    container_name: reservation-service
+    environment:
+      - DB_HOST=mysql-db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_NAME=bus_reservation
+      - FLASK_SECRET_KEY=super-secret-session-key-for-all-services
+    ports:
+      - "5002:5002"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - bus-reservation-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5002/health || exit 1"]
+      interval: 20s 
+      timeout: 10s 
+      retries: 10 
+
+  gateway:
+    build: ./gateway
+    container_name: api-gateway
+    environment:
+      - AUTH_SERVICE_URL=http://auth-service:5000
+      - BUS_SERVICE_URL=http://bus-service:5001
+      - RESERVATION_SERVICE_URL=http://reservation-service:5002
+      - FLASK_SECRET_KEY=super-secret-session-key-for-all-services
+    ports:
+      - "8000:5000"
+    depends_on:
+      auth-service:
+        condition: service_healthy
+      reservation-service:
+        condition: service_healthy
+    networks:
+      - bus-reservation-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
+      interval: 20s 
+      timeout: 10s
+      retries: 10 
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: bus-reservation-frontend
+    ports:
+      - "4200:80"
+    environment:
+      API_GATEWAY_HOST: gateway
+    depends_on:
+      gateway:
+        condition: service_healthy
+    networks:
+      - bus-reservation-network
+    restart: unless-stopped
+
+networks:
+  bus-reservation-network:
+    driver: bridge

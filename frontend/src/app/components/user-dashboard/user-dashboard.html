@@ -1,0 +1,44 @@
+<div class="user-dashboard-container">
+  <h2 class="dashboard-title">
+    <mat-icon class="title-icon">dashboard</mat-icon> Your Bookings
+  </h2>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
+    <p>Loading your bookings...</p>
+  </div>
+
+  <div *ngIf="!isLoading && userBookings.length === 0" class="no-bookings-message">
+    <mat-icon>info</mat-icon> You have no active bookings.
+  </div>
+
+  <div *ngIf="!isLoading && userBookings.length > 0" class="bookings-list">
+    <mat-card *ngFor="let booking of userBookings" class="booking-card">
+      <mat-card-header>
+        <mat-card-title>{{ booking.bus_origin }} to {{ booking.bus_destination }}</mat-card-title>
+        <mat-card-subtitle>
+          Booking ID: {{ booking.booking_id }} | Travel Date: {{ booking.travel_date | date }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="booking-details">
+          <p><strong>Operator:</strong> {{ booking.operator_name }} ({{ booking.bus_type }})</p>
+          <p><strong>Departure:</strong> {{ booking.departure_time }} | <strong>Arrival:</strong> {{ booking.arrival_time }}</p>
+          <p><strong>Seats:</strong> <mat-chip-list aria-label="Booked seats">
+            <mat-chip *ngFor="let seat of booking.seat_numbers" color="accent" selected>{{ seat }}</mat-chip>
+          </mat-chip-list></p>
+          <p><strong>Total Amount:</strong> ₹{{ booking.total_amount | number:'1.2-2' }}</p>
+          <p><strong>Status:</strong> 
+            <mat-chip [color]="booking.status === 'cancelled' ? 'warn' : 'primary'" selected>{{ booking.status | uppercase }}</mat-chip>
+          </p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="warn" (click)="cancelBooking(booking.booking_id)" 
+                [disabled]="booking.status === 'cancelled'">
+          <mat-icon>cancel</mat-icon> Cancel Booking
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

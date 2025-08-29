@@ -1,0 +1,124 @@
+<div class="search-results-container">  <div class="search-header">
+    <button mat-icon-button (click)="goBack()" style="margin-right: 15px;" matTooltip="Back to search">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="search-info">
+      <h2>
+        <mat-icon style="vertical-align: middle; margin-right: 10px; color: var(--saffron);">directions_bus</mat-icon>
+        Available Buses
+      </h2>
+      <p style="color: #666; margin-top: 5px;">
+        <mat-icon style="vertical-align: middle; font-size: 1.2rem;">place</mat-icon>
+        {{ searchParams.origin }} → {{ searchParams.destination }} 
+        <mat-icon style="vertical-align: middle; margin-left: 15px; font-size: 1.2rem;">event</mat-icon>
+        {{ searchParams.date }}
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner">
+      <mat-spinner diameter="60" color="primary"></mat-spinner>
+      <p style="margin-top: 20px; font-size: 1.1rem; color: var(--navy);">
+        <mat-icon style="vertical-align: middle; margin-right: 5px;">search</mat-icon>
+        Finding the best buses for you...
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && buses.length === 0" class="no-results">
+    <mat-icon style="font-size: 5rem; width: 5rem; height: 5rem; color: var(--saffron); margin-bottom: 20px;">
+      directions_bus_filled
+    </mat-icon>
+    <h3>No buses found for this route</h3>
+    <p style="margin: 15px 0; color: #666;">Try different dates or check popular routes</p>
+    <button mat-raised-button color="primary" (click)="goBack()">
+      <mat-icon>search</mat-icon>
+      <span>Search Again</span>
+    </button>
+  </div>
+
+  <div *ngIf="!isLoading && buses.length > 0" class="results-grid">
+    <div *ngFor="let bus of buses; let i = index" 
+         class="bus-card fade-in-up"
+         [style.animation-delay]="(i * 0.2) + 's'">
+
+      <div class="bus-image-section">
+        <img [src]="bus.image" [alt]="bus.operator" class="bus-image" loading="lazy">
+        <div class="bus-rating">
+          <mat-icon style="color: gold; font-size: 1rem;">star</mat-icon>
+          <span>{{ bus.rating }}</span>
+        </div>
+      </div>
+
+      <div class="bus-details-section">
+        <div class="bus-header">
+          <h3 class="bus-operator">{{ bus.operator }}</h3>
+          <span class="bus-type">{{ bus.type }}</span>
+        </div>
+
+        <div class="bus-route">
+          <div class="route-timing">
+            <div class="departure">
+              <span class="time">{{ bus.departure }}</span>
+              <span class="city">{{ searchParams.origin }}</span>
+            </div>
+            <div class="route-indicator">
+              <mat-icon>arrow_forward</mat-icon>
+              <span class="duration">{{ bus.duration }}</span>
+            </div>
+            <div class="arrival">
+              <span class="time">{{ bus.arrival }}</span>
+              <span class="city">{{ searchParams.destination }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="amenities-section" *ngIf="bus.amenities">
+          <div class="amenity-chip" *ngFor="let amenity of bus.amenities">
+            <mat-icon style="font-size: 1rem; margin-right: 4px;">
+              {{ amenity === 'AC' ? 'ac_unit' : 
+                 amenity === 'WiFi' ? 'wifi' : 
+                 amenity === 'Charging' ? 'battery_charging_full' : 
+                 amenity === 'Blanket' ? 'hotel' : 
+                 amenity === 'Entertainment' ? 'movie' : 'check' }}
+            </mat-icon>
+            {{ amenity }}
+          </div>
+        </div>
+
+        <div class="seats-info">
+          <mat-icon style="color: var(--green); margin-right: 5px;">event_seat</mat-icon>
+          <span [style.color]="bus.available < 5 ? 'var(--accent-orange)' : 'var(--green)'">
+            {{ bus.available }} seats available
+          </span>
+          <span style="color: #999; margin-left: 10px;">of {{ bus.total }}</span>
+        </div>
+      </div>
+
+      <div class="bus-price-section">
+        <div class="price-info">
+          <div class="price">
+            <mat-icon style="color: var(--green); font-size: 1.2rem;">currency_rupee</mat-icon>
+            <span class="amount">{{ bus.price }}</span>
+          </div>
+          <div class="price-label">per person</div>
+        </div>
+
+        <div class="booking-actions">
+          <button mat-stroked-button color="primary" style="margin-bottom: 10px; width: 100%;">
+            <mat-icon>info</mat-icon>
+            <span>View Details</span>
+          </button>
+          <button mat-raised-button color="primary" 
+                  class="book-btn pulse"
+                  (click)="bookBus(bus)"
+                  style="width: 100%;">
+            <mat-icon>event_seat</mat-icon>
+            <span>Book Now</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

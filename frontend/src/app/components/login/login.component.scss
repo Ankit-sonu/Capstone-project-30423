@@ -1,0 +1,36 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 64px); 
+  background-color: #f0f2f5;
+
+  .login-dialog {
+    padding: 30px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+
+    .dialog-header {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+
+      h2 {
+        color: var(--navy);
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+    }
+
+    .tab-content {
+      padding: 30px 20px 20px;
+
+      mat-form-field {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}
