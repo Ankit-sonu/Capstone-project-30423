@@ -1,0 +1,111 @@
+.flats-container {
+  padding: 40px;
+  text-align: center;
+}
+
+.flats-container h2 {
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+.empty-state {
+  margin-top: 50px;
+  color: #888;
+  font-size: 18px;
+}
+
+.empty-state img {
+  width: 120px;
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.flats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.flat-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.flat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.image-wrapper {
+  height: 180px;
+  overflow: hidden;
+}
+
+.flat-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.flat-card:hover img {
+  transform: scale(1.08);
+}
+
+.flat-info {
+  padding: 15px;
+  text-align: left;
+}
+
+.flat-info h3 {
+  margin: 0;
+  color: #2980b9;
+}
+
+.flat-info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.delete-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 0 0 15px 15px;
+  transition: background 0.3s;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+}
+
+.add-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #27ae60, #1e8449);
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.add-btn:hover {
+  background: linear-gradient(135deg, #1e8449, #145a32);
+  transform: translateY(-3px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

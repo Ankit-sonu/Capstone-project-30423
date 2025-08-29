@@ -1,0 +1,26 @@
+<div class="app-container">
+  <header class="header">
+    <h1 class="logo"><i class="fas fa-building"></i> DreamHomes</h1>
+    <nav>
+      <a routerLink="/home" routerLinkActive="active">Home</a>
+      <a routerLink="/add" routerLinkActive="active">Add Flat</a>
+      <a routerLink="/list" routerLinkActive="active">View Flats</a>
+    </nav>
+  </header>
+
+  <section class="hero" *ngIf="currentRoute === '/home' || currentRoute === '/'">
+    <div class="hero-content">
+      <h2>Find Your Perfect Home</h2>
+      <p>Browse curated listings with the best prices and prime locations.</p>
+      <a routerLink="/list" class="btn-primary">Explore Flats</a>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 DreamHomes. All rights reserved.</p>
+  </footer>
+</div>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Book</title>
+</head>
+<body>
+    <h2 style="text-align:center;">Search Book by ISBN</h2>
+    <form method="post" action="/search" style="text-align:center;">
+        <input type="text" name="isbn" placeholder="Enter ISBN" required />
+        <input type="submit" value="Search" />
+    </form>
+
+    {% if result %}
+        <h3 style="text-align:center;">Book Found:</h3>
+        <table border="1" align="center">
+            <tr>
+                <th>ISBN</th><th>Name</th><th>Publisher</th><th>Price</th>
+            </tr>
+            <tr>
+                <td>{{ result['isbn'] }}</td>
+                <td>{{ result['name'] }}</td>
+                <td>{{ result['publisher'] }}</td>
+                <td>{{ result['price'] }}</td>
+            </tr>
+        </table>
+    {% elif result is not none %}
+        <p style="text-align:center; color:red;">Book not found.</p>
+    {% endif %}
+</body>
+</html>

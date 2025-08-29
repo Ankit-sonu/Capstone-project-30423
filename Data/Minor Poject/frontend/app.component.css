@@ -1,0 +1,96 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+
+.app-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+nav a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: #ecf0f1;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+  color: #f39c12;
+}
+
+.hero {
+  background: url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600") center/cover no-repeat;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-content {
+  background: rgba(0, 0, 0, 0.55);
+  padding: 2rem;
+  border-radius: 12px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+  background: #f39c12;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn-primary:hover {
+  background: #d35400;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.footer {
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 1rem;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

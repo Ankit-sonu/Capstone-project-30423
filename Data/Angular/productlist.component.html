@@ -1,0 +1,8 @@
+<p>Produts List</p>
+
+<ul>
+    <li *ngFor="let p of products">
+        {{p.name}} - {{p.price.toFixed(2)}}
+        <button (click)="select(p)">select</button>
+    </li>
+</ul>

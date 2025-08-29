@@ -1,0 +1,29 @@
+<html>
+   <head>
+        <script>
+            function display1(){
+                //window.alert("Button-1 is Caled")
+              //  var p = document.getElementsByTagName("p");
+              var p = document.getElementsByClassName("myclass");
+                p[0].innerHTML="This is new content for para-1 tag";
+                 p[1].innerHTML="This is new content for para-2 tag";
+                //p.innerHTML="This is my new content";
+
+            }
+            function display2(){
+                var p = document.getElementById("heading");
+                p.innerHTML="This is new content for h2 tag";
+               // window.alert("Button-2 is Caled");
+            }
+        </script>
+
+   </head> 
+   <body>
+        <p class="myclass">First Paragraph</p> <br>
+        <h2 id="heading">This is h2 heading</h2>
+        <p class="myclass">Second Paragraph</p> <br>
+        <button onclick="display1()">Button1</button>
+        <button onclick="display2()">Button2</button>
+
+   </body>
+</html>

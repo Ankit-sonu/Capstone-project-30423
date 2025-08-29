@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Book</title>
+</head>
+<body>
+    <h2 style="text-align:center;">Delete Book by ISBN</h2>
+    <form method="post" action="/delete" style="text-align:center;">
+        <input type="text" name="isbn" placeholder="Enter ISBN to delete" required />
+        <input type="submit" value="Delete" />
+    </form>
+
+    {% if message %}
+        <p style="text-align:center; color:blue;">{{ message }}</p>
+    {% endif %}
+</body>
+</html>

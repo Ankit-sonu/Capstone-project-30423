@@ -1,0 +1,14 @@
+<h3>Child Component - Add Product</h3>
+
+<form (ngSubmit)="submitProduct()">
+  <label>ID:</label>
+  <input type="text" [(ngModel)]="product.id" name="id"><br><br>
+
+  <label>Name:</label>
+  <input type="text" [(ngModel)]="product.name" name="name"><br><br>
+
+  <label>Price:</label>
+  <input type="number" [(ngModel)]="product.price" name="price"><br><br>
+
+  <button type="submit">Add Product</button>
+</form>

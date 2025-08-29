@@ -1,0 +1,19 @@
+<div class="add-flat-container">
+  <h2>Add a New Flat</h2>
+  <form (ngSubmit)="onSubmit()" #flatForm="ngForm" class="flat-form">
+    <label>Type:</label>
+    <select name="type" [(ngModel)]="flat.type" required>
+      <option value="1BHK">1BHK</option>
+      <option value="2BHK">2BHK</option>
+      <option value="3BHK">3BHK</option>
+    </select>
+
+    <label>Price (INR):</label>
+    <input type="number" name="price" [(ngModel)]="flat.price" required min="1">
+
+    <label>Location:</label>
+    <input type="text" name="location" [(ngModel)]="flat.location" required>
+
+    <button type="submit" class="submit-btn">+ Add Flat</button>
+  </form>
+</div>

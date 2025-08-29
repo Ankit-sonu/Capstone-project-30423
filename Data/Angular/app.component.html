@@ -1,0 +1,15 @@
+<h2>Login Page</h2>
+Enter Login id : <input type="text" [(ngModel)]="username"/><br>
+Enter Password : <input type="password" [(ngModel)]="passwd"/><br>
+<button (click)="validate()">Login</button>
+
+<div>Valid User : {{validUser}} </div>
+
+Enter some text : <input type="text" [(ngModel)]="txt" />
+your entered text : {{txt}}
+
+<app-toggle-button> </app-toggle-button>
+<!-- <app-productlist></app-productlist> -->
+ <!--<app-dashboard></app-dashboard> -->
+ <app-child></app-child>
+ <app-parent></app-parent>

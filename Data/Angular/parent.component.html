@@ -1,0 +1,10 @@
+<h2>Parent Component</h2>
+
+<app-child (productAdded)="handleProductAddition($event)"></app-child>
+
+<h3>Product List:</h3>
+<ul>
+  <li *ngFor="let product of productList">
+    {{ product.id }} - {{ product.name }} - ₹{{ product.price }}
+  </li>
+</ul>

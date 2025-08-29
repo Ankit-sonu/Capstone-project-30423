@@ -1,0 +1,26 @@
+<div class="flats-container">
+  <h2>Available Flats</h2>
+
+  <div *ngIf="flats.length === 0" class="empty-state">
+    <img src="https://cdn-icons-png.flaticon.com/512/4076/4076509.png" alt="No flats">
+    <p>No flats available yet. <a routerLink="/add">Add one now</a>.</p>
+  </div>
+
+  <div class="flats-grid">
+    <div class="flat-card" *ngFor="let flat of flats; index as i">
+      <div class="image-wrapper">
+        <img [src]="flat.image || 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=600&q=60'" alt="Flat">
+      </div>
+      <div class="flat-info">
+        <h3>{{ flat.type }}</h3>
+        <p>Price: {{ flat.price }} INR</p>
+        <p>{{ flat.location }}</p>
+      </div>
+      <button (click)="deleteFlat(i)" class="delete-btn">
+        <i class="fas fa-trash"></i> Delete
+      </button>
+    </div>
+  </div>
+
+  <a routerLink="/add" class="add-btn">+ Add Flat</a>
+</div>
